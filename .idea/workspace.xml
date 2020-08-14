@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9031b733-1b34-4d14-85a7-2dc945ec6e9f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/name_list.py" afterDir="false" />
-    </list>
+    <list default="true" id="9031b733-1b34-4d14-85a7-2dc945ec6e9f" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,5 +69,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
