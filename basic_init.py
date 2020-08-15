@@ -3,6 +3,7 @@ import sys
 import requests
 
 chosen_letters = []
+wrong_guesses = ["a", "b"]
 letter_choices = list(string.ascii_lowercase)
 
 url = "https://wordsapiv1.p.rapidapi.com/words/"
@@ -11,7 +12,7 @@ querystring = {"random": "true"}
 
 headers = {
         'x-rapidapi-host': "wordsapiv1.p.rapidapi.com",
-        'x-rapidapi-key': "3e3e95c1b4msha49119e00fce587p15ea74jsn06eff2c680e0"
+        'x-rapidapi-key': 
     }
 
 response = requests.request("GET", url, headers=headers, params=querystring)
@@ -47,10 +48,30 @@ def play():
         else:
             print("try a different letter\n")
             letter_choices.remove(chosen_letters[x])
+            wrong_guesses.append(chosen)
             x += 1
 
 
-start()
 
+def hangman_img():
+    if len(wrong_guesses) == 0:
+        print("5 more guesses")
+    elif len(wrong_guesses) == 1:
+        print("4 more guesses")
+    elif len(wrong_guesses) == 2:
+        print("3 more guesses")
+    elif len(wrong_guesses) == 3:
+        print("2 more guesses")
+    elif len(wrong_guesses) == 4:
+        print("1 more guesses")
+    elif len(wrong_guesses) == 5:
+        print("0 more guesses")
+        print("YOU LOSE!!!")
+
+
+
+# start()
+
+hangman_img()
 
 
