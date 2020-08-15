@@ -11,7 +11,7 @@ querystring = {"random": "true"}
 
 headers = {
         'x-rapidapi-host': "wordsapiv1.p.rapidapi.com",
-        'x-rapidapi-key': 
+        'x-rapidapi-key': "3e3e95c1b4msha49119e00fce587p15ea74jsn06eff2c680e0"
     }
 
 response = requests.request("GET", url, headers=headers, params=querystring)
@@ -42,9 +42,11 @@ def play():
         chosen_letters.append(chosen)
         if str(chosen_letters[x]) in secret_word:
             print(chosen_letters[x] + " is in the word!")
+            letter_choices.remove(chosen_letters[x])
             x += 1
         else:
             print("try a different letter\n")
+            letter_choices.remove(chosen_letters[x])
             x += 1
 
 
