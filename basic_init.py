@@ -3,21 +3,31 @@ import sys
 import requests
 
 chosen_letters = []
-wrong_guesses = ["a", "b"]
+wrong_guesses = []
 letter_choices = list(string.ascii_lowercase)
+# value = input("how many letter?")
 
 url = "https://wordsapiv1.p.rapidapi.com/words/"
 
+# https://wordsapiv1.p.mashape.com/words/?letters=6
+# to get the words by length i need to change the querystring to "letters" : "some number"
+
+# querystring = {"letters": value}
 querystring = {"random": "true"}
 
 headers = {
         'x-rapidapi-host': "wordsapiv1.p.rapidapi.com",
-        'x-rapidapi-key': 
+        'x-rapidapi-key':
     }
 
 response = requests.request("GET", url, headers=headers, params=querystring)
 res = response.json()
+# gives total number of words with desired letters
+# ['results']['total']
+# gives the words with the desired letters
+# ['results']['data']
 secret_word = res['word']
+# secret_word = res['word']
 
 
 
@@ -37,8 +47,10 @@ def start():
 
 
 def play():
+
     x = 0
     while x < 8:
+        hangman_img()
         chosen = input("What letter do you want to choose?\n" + str(letter_choices) + "\n")
         chosen_letters.append(chosen)
         if str(chosen_letters[x]) in secret_word:
@@ -70,8 +82,8 @@ def hangman_img():
 
 
 
-# start()
+start()
 
-hangman_img()
+# hangman_img()
 
 
