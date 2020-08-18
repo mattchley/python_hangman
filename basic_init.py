@@ -17,7 +17,7 @@ querystring = {"random": "true"}
 
 headers = {
         'x-rapidapi-host': "wordsapiv1.p.rapidapi.com",
-        'x-rapidapi-key':
+        'x-rapidapi-key': "3e3e95c1b4msha49119e00fce587p15ea74jsn06eff2c680e0"
     }
 
 response = requests.request("GET", url, headers=headers, params=querystring)
@@ -49,16 +49,22 @@ def start():
 def play():
 
     x = 0
-    while x < 8:
+    while x < 26:
         hangman_img()
         chosen = input("What letter do you want to choose?\n" + str(letter_choices) + "\n")
         chosen_letters.append(chosen)
         if str(chosen_letters[x]) in secret_word:
-            print(chosen_letters[x] + " is in the word!")
-            letter_choices.remove(chosen_letters[x])
-            x += 1
+            if chosen in chosen_letters:
+                print("you have used that letter already. Try again")
+            else:
+                print(chosen_letters[x] + " is in the word!")
+                letter_choices.remove(chosen_letters[x])
+                x += 1
+
+        #     need elif for if wrong_guesses == 5 to end
+        #    another elif for a letter chosen that was put in already
         else:
-            print("try a different letter\n")
+            print("Try a different letter\n")
             letter_choices.remove(chosen_letters[x])
             wrong_guesses.append(chosen)
             x += 1
@@ -68,22 +74,56 @@ def play():
 def hangman_img():
     if len(wrong_guesses) == 0:
         print("5 more guesses")
+        print("....._____")
+        print("....|.....O.....")
+        print("....|...........")
+        print("....|...........")
+        print("....|...........")
+        print("....|...........")
     elif len(wrong_guesses) == 1:
         print("4 more guesses")
+        print("....._____")
+        print("....|.....O.....")
+        print("....|.....|.....")
+        print("....|.....|.....")
+        print("....|...........")
+        print("....|...........")
     elif len(wrong_guesses) == 2:
         print("3 more guesses")
+        print("....._____")
+        print("....|.....O.....")
+        print("....|.../.|.....")
+        print("....|../..|.....")
+        print("....|...........")
+        print("....|...........")
     elif len(wrong_guesses) == 3:
         print("2 more guesses")
+        print("....._____")
+        print("....|.....O.....")
+        print("....|.../.|.\...")
+        print("....|../..|..\..")
+        print("....|...........")
+        print("....|...........")
     elif len(wrong_guesses) == 4:
         print("1 more guesses")
+        print("....._____")
+        print("....|.....O.....")
+        print("....|.../.|.\...")
+        print("....|../..|..\..")
+        print("....|..../......")
+        print("....|.../.......")
     elif len(wrong_guesses) == 5:
         print("0 more guesses")
+        print("....._____")
+        print("....|.....O.....")
+        print("....|.../.|.\...")
+        print("....|../..|..\..")
+        print("....|..../.\....")
+        print("....|.../...\...")
         print("YOU LOSE!!!")
+        sys.exit()
 
 
 
 start()
-
-# hangman_img()
-
 
