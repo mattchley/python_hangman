@@ -4,15 +4,11 @@ import requests
 
 chosen_letters = []
 wrong_guesses = []
+
 letter_choices = list(string.ascii_lowercase)
-# value = input("how many letter?")
 
 url = "https://wordsapiv1.p.rapidapi.com/words/"
 
-# https://wordsapiv1.p.mashape.com/words/?letters=6
-# to get the words by length i need to change the querystring to "letters" : "some number"
-
-# querystring = {"letters": value}
 querystring = {"random": "true"}
 
 headers = {
@@ -22,10 +18,6 @@ headers = {
 
 response = requests.request("GET", url, headers=headers, params=querystring)
 res = response.json()
-# gives total number of words with desired letters
-# ['results']['total']
-# gives the words with the desired letters
-# ['results']['data']
 secret_word = res['word']
 
 
@@ -34,10 +26,7 @@ secret_word = res['word']
 def start():
     print("Ready to play a game of hangman???")
     print("The game is simple. You have a limited number of guesses to find all the letters in a word of some length.")
-    # print("You will decide the length.")
     if input("Do you wish to continue??? [Y/N] ") == "Y":
-        # length = input("How long should the word be?")
-        # print("I will find a " + length + " letter word for you")
         play()
     else:
         print("Guess we will play another time.\n See you later!!!")
@@ -45,7 +34,6 @@ def start():
 
 
 def play():
-
     x = 0
     while x < 26:
         hangman_img()
