@@ -17,7 +17,7 @@ querystring = {"random": "true"}
 
 headers = {
         'x-rapidapi-host': "wordsapiv1.p.rapidapi.com",
-        'x-rapidapi-key': "3e3e95c1b4msha49119e00fce587p15ea74jsn06eff2c680e0"
+        'x-rapidapi-key': TOKEN
     }
 
 response = requests.request("GET", url, headers=headers, params=querystring)
@@ -27,13 +27,11 @@ res = response.json()
 # gives the words with the desired letters
 # ['results']['data']
 secret_word = res['word']
-# secret_word = res['word']
 
 
 
 
 def start():
-    print(secret_word)
     print("Ready to play a game of hangman???")
     print("The game is simple. You have a limited number of guesses to find all the letters in a word of some length.")
     # print("You will decide the length.")
@@ -60,9 +58,6 @@ def play():
                 print(chosen_letters[x] + " is in the word!")
                 letter_choices.remove(chosen_letters[x])
                 x += 1
-
-        #     need elif for if wrong_guesses == 5 to end
-        #    another elif for a letter chosen that was put in already
         else:
             print("Try a different letter\n")
             letter_choices.remove(chosen_letters[x])
