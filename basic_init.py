@@ -5,6 +5,7 @@ import requests
 chosen_letters = []
 wrong_guesses = []
 tracker_list = []
+right_guesses = []
 
 letter_choices = list(string.ascii_lowercase)
 
@@ -37,14 +38,17 @@ def play():
     print(secret_word)
     x = 0
     while x < 26:
-        hangman_img()
-        placholder()
+        # hangman_img()
+        print(tracker_list)
         chosen = input("What letter do you want to choose?\n" + str(letter_choices) + "\n")
         if chosen in chosen_letters:
             print("you have used the letter already!\nTry a different letter.")
         elif chosen in secret_word:
             print(chosen + " is in the word!")
             letter_choices.remove(chosen)
+            right_guesses.append(chosen)
+            tracker_list.pop(secret_word.index(chosen))
+            tracker_list.insert(secret_word.index(chosen), chosen)
             x += 1
         else:
             print(chosen + " is not in the word.\nTry a different letter\n")
@@ -113,8 +117,6 @@ def intro():
     print("Your word is " + str(len(secret_word)) + " characters long!")
     print(tracker_list)
 
-def placholder():
-    print('test')
-
 
 start()
+
