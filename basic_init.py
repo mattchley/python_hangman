@@ -4,6 +4,7 @@ import requests
 
 chosen_letters = []
 wrong_guesses = []
+tracker_list = []
 
 letter_choices = list(string.ascii_lowercase)
 
@@ -12,15 +13,13 @@ url = "https://wordsapiv1.p.rapidapi.com/words/"
 querystring = {"random": "true"}
 
 headers = {
-        'x-rapidapi-host': "wordsapiv1.p.rapidapi.com",
-        'x-rapidapi-key': TOKEN
-    }
+    'x-rapidapi-host': "wordsapiv1.p.rapidapi.com",
+    'x-rapidapi-key': TOKEN
+}
 
 response = requests.request("GET", url, headers=headers, params=querystring)
 res = response.json()
 secret_word = res['word']
-
-
 
 
 def start():
@@ -34,25 +33,26 @@ def start():
 
 
 def play():
+    intro()
+    print(secret_word)
     x = 0
     while x < 26:
         hangman_img()
+        placholder()
         chosen = input("What letter do you want to choose?\n" + str(letter_choices) + "\n")
-        chosen_letters.append(chosen)
-        if str(chosen_letters[x]) in secret_word:
-            if chosen in chosen_letters:
-                print("you have used that letter already. Try again")
-            else:
-                print(chosen_letters[x] + " is in the word!")
-                letter_choices.remove(chosen_letters[x])
-                x += 1
+        if chosen in chosen_letters:
+            print("you have used the letter already!\nTry a different letter.")
+        elif chosen in secret_word:
+            print(chosen + " is in the word!")
+            letter_choices.remove(chosen)
+            x += 1
         else:
-            print("Try a different letter\n")
-            letter_choices.remove(chosen_letters[x])
+            print(chosen + " is not in the word.\nTry a different letter\n")
+            letter_choices.remove(chosen)
             wrong_guesses.append(chosen)
             x += 1
 
-
+        chosen_letters.append(chosen)
 
 def hangman_img():
     if len(wrong_guesses) == 0:
@@ -107,6 +107,14 @@ def hangman_img():
         sys.exit()
 
 
+def intro():
+    for x in secret_word:
+        tracker_list.append("_")
+    print("Your word is " + str(len(secret_word)) + " characters long!")
+    print(tracker_list)
+
+def placholder():
+    print('test')
+
 
 start()
-
