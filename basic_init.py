@@ -38,13 +38,13 @@ def play():
     print(secret_word)
     x = 0
     while x < 26:
-        # hangman_img()
+        hangman_img()
         print(tracker_list)
         chosen = input("What letter do you want to choose?\n" + str(letter_choices) + "\n")
         if chosen in chosen_letters:
             print("you have used the letter already!\nTry a different letter.")
         elif chosen in secret_word:
-            print(chosen + " is in the word!")
+            print(chosen + " is in the word!\n" + str(secret_word.count(chosen)) + ' time(s)')
             letter_choices.remove(chosen)
             right_guesses.append(chosen)
             tracker_list.pop(secret_word.index(chosen))
@@ -118,5 +118,43 @@ def intro():
     print(tracker_list)
 
 
-start()
 
+def test():
+
+    tester = "Do geese see God"
+    choice = "e"
+    test_list = []
+    choice_count = tester.count(choice)
+
+
+    for y in tester:
+        test_list.append("_")
+
+    # need an elif at 0 index
+    x = 0
+    y = 0
+    while x < len(tester):
+        if choice in tester and y < choice_count:
+            while y < choice_count:
+                if tester[x] == choice:
+                    z = tester.index(choice, x, len(tester))
+                    print(z)
+                    test_list.pop(z)
+                    test_list.insert(z, choice)
+                    x += 1
+                    y += 1
+                else:
+                    x += 1
+        elif choice in tester and y == choice_count:
+            z = tester.index(choice)
+            test_list.pop(z)
+            test_list.insert(z, choice)
+            x += 1
+        else:
+            print("there is none")
+            break
+    print(test_list)
+
+
+
+test()
