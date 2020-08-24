@@ -7,6 +7,7 @@ wrong_guesses = []
 tracker_list = []
 right_guesses = []
 
+
 letter_choices = list(string.ascii_lowercase)
 
 url = "https://wordsapiv1.p.rapidapi.com/words/"
@@ -36,27 +37,39 @@ def start():
 def play():
     intro()
     print(secret_word)
-    x = 0
-    while x < 26:
+    z = 0
+    while z < 26:
         hangman_img()
-        print(tracker_list)
         chosen = input("What letter do you want to choose?\n" + str(letter_choices) + "\n")
-        if chosen in chosen_letters:
-            print("you have used the letter already!\nTry a different letter.")
-        elif chosen in secret_word:
-            print(chosen + " is in the word!\n" + str(secret_word.count(chosen)) + ' time(s)')
-            letter_choices.remove(chosen)
-            right_guesses.append(chosen)
-            tracker_list.pop(secret_word.index(chosen))
-            tracker_list.insert(secret_word.index(chosen), chosen)
-            x += 1
-        else:
-            print(chosen + " is not in the word.\nTry a different letter\n")
-            letter_choices.remove(chosen)
-            wrong_guesses.append(chosen)
-            x += 1
+        choice_count = secret_word.count(chosen)
 
-        chosen_letters.append(chosen)
+        x = 0
+        y = 0
+        while x < len(secret_word):
+            if chosen in secret_word and y < choice_count:
+                letter_choices.remove(chosen)
+                while y < choice_count:
+                    if secret_word[x] == chosen:
+                        z = secret_word.index(chosen, x, len(secret_word))
+                        tracker_list.pop(z)
+                        tracker_list.insert(z, chosen)
+                        right_guesses.append(chosen)
+                        x += 1
+                        y += 1
+                    else:
+                        x += 1
+            elif chosen in secret_word and y == choice_count:
+                z = secret_word.index(chosen)
+                tracker_list.pop(z)
+                tracker_list.insert(z, chosen)
+                right_guesses.append(chosen)
+                x += 1
+            else:
+                print("there is none")
+                wrong_guesses.append(chosen)
+                x += 1
+                break
+
 
 def hangman_img():
     if len(wrong_guesses) == 0:
@@ -115,46 +128,5 @@ def intro():
     for x in secret_word:
         tracker_list.append("_")
     print("Your word is " + str(len(secret_word)) + " characters long!")
-    print(tracker_list)
 
-
-
-def test():
-
-    tester = "Do geese see God"
-    choice = "e"
-    test_list = []
-    choice_count = tester.count(choice)
-
-
-    for y in tester:
-        test_list.append("_")
-
-    # need an elif at 0 index
-    x = 0
-    y = 0
-    while x < len(tester):
-        if choice in tester and y < choice_count:
-            while y < choice_count:
-                if tester[x] == choice:
-                    z = tester.index(choice, x, len(tester))
-                    print(z)
-                    test_list.pop(z)
-                    test_list.insert(z, choice)
-                    x += 1
-                    y += 1
-                else:
-                    x += 1
-        elif choice in tester and y == choice_count:
-            z = tester.index(choice)
-            test_list.pop(z)
-            test_list.insert(z, choice)
-            x += 1
-        else:
-            print("there is none")
-            break
-    print(test_list)
-
-
-
-test()
+play()
