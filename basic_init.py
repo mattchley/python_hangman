@@ -16,7 +16,7 @@ querystring = {"random": "true"}
 
 headers = {
     'x-rapidapi-host': "wordsapiv1.p.rapidapi.com",
-    'x-rapidapi-key': TOKEN
+    'x-rapidapi-key': "3e3e95c1b4msha49119e00fce587p15ea74jsn06eff2c680e0"
 }
 
 response = requests.request("GET", url, headers=headers, params=querystring)
@@ -45,8 +45,8 @@ def play():
         x = 0
         y = 0
         while x < len(secret_word):
-            if len(chosen) > 1:
-                print("too many characters try again")
+            if len(chosen) > 1 or chosen == '' or chosen == ' ':
+                print("Try again")
                 break
             elif chosen in secret_word and y < choice_count:
                 letter_choices.remove(chosen)
@@ -71,8 +71,8 @@ def play():
                 wrong_guesses.append(chosen)
                 x += 1
                 break
-
-
+        print(tracker_list)
+        print("\n")
 def hangman_img():
     if len(wrong_guesses) == 0:
         print("5 more guesses")
@@ -127,6 +127,7 @@ def hangman_img():
 
 
 def intro():
+
     space_count = secret_word.count(" ")
     for w in secret_word:
         tracker_list.append("_")
@@ -148,12 +149,11 @@ def intro():
                 x += 1
 
         print("Your word is " + str(len(secret_word) - space_count) + " characters long!")
-        print(tracker_list)
     else:
         print("there are no spaces")
         print("Your word is " + str(len(secret_word) - space_count) + " characters long!")
-        print(tracker_list)
 
 
 
-intro()
+
+start()
