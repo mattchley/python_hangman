@@ -23,7 +23,6 @@ response = requests.request("GET", url, headers=headers, params=querystring)
 res = response.json()
 secret_word = res['word']
 
-
 def start():
     print("Ready to play a game of hangman???")
     print("The game is simple. You have a limited number of guesses to find all the letters in a word of some length.")
@@ -128,9 +127,33 @@ def hangman_img():
 
 
 def intro():
-    for x in secret_word:
+    space_count = secret_word.count(" ")
+    for w in secret_word:
         tracker_list.append("_")
-    print("Your word is " + str(len(secret_word)) + " characters long!")
+    x = 0
+    y = 0
+    if " " in secret_word:
+        print("there are spaces in the word")
+        print(space_count)
+
+        while y < space_count:
+            if secret_word[x] == ' ':
+                z = secret_word.index(' ', x, len(secret_word))
+                tracker_list.pop(z)
+                tracker_list.insert(z, ' ')
+
+                x += 1
+                y += 1
+            else:
+                x += 1
+
+        print("Your word is " + str(len(secret_word) - space_count) + " characters long!")
+        print(tracker_list)
+    else:
+        print("there are no spaces")
+        print("Your word is " + str(len(secret_word) - space_count) + " characters long!")
+        print(tracker_list)
 
 
-play()
+
+intro()
