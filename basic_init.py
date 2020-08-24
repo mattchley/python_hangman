@@ -46,7 +46,10 @@ def play():
         x = 0
         y = 0
         while x < len(secret_word):
-            if chosen in secret_word and y < choice_count:
+            if len(chosen) > 1:
+                print("too many characters try again")
+                break
+            elif chosen in secret_word and y < choice_count:
                 letter_choices.remove(chosen)
                 while y < choice_count:
                     if secret_word[x] == chosen:
@@ -128,5 +131,6 @@ def intro():
     for x in secret_word:
         tracker_list.append("_")
     print("Your word is " + str(len(secret_word)) + " characters long!")
+
 
 play()
